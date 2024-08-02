@@ -1,4 +1,4 @@
-package com.bookShare.Servicios;
+package com.bookShare.Repositories;
 
 public class CategoriasRepository {
     
