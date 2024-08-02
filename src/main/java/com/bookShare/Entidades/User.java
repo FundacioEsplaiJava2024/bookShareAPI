@@ -21,7 +21,7 @@ public class User{
 
     private String created_at;
 
-    private String update_at;
+    private String updated_at;
 
 
     public User() {}
@@ -32,7 +32,7 @@ public class User{
         this.email=email;
         this.created_at=created_at;
         this.password=password;
-        this.update_at=update_at;
+        this.updated_at=update_at;
 
     }
 
@@ -77,11 +77,11 @@ public class User{
     }
 
     public String getUpdate_at() {
-        return update_at;
+        return updated_at;
     }
 
     public void setUpdate_at(String update_at) {
-        this.update_at = update_at;
+        this.updated_at = update_at;
     }
 
     
