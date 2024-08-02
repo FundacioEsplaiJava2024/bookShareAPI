@@ -1,5 +1,5 @@
 package com.bookShare.Controllers;
 
-public class SearchController {
+public class CategoriasController {
     
 }

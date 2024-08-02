@@ -1,5 +1,5 @@
 package com.bookShare.Servicios;
 
-public class SearchRepository {
+public class CategoriasRepository {
     
 }
