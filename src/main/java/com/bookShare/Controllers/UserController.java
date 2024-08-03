@@ -4,9 +4,9 @@
     import org.springframework.beans.factory.annotation.Autowired;
 
     import com.bookShare.Entidades.User;
-    import com.bookShare.Servicios.UserService;
+import com.bookShare.Services.UserService;
 
-    import java.util.List;
+import java.util.List;
     import java.util.Optional;
 
     @RestController

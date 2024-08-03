@@ -1,9 +1,9 @@
-package com.bookShare.Servicios;
+package com.bookShare.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bookShare.Entidades.Categorias;
-import com.bookShare.Repositorios.CategoriasRepository;
+import com.bookShare.Repositories.CategoriasRepository;
 
 import java.util.List;
 import java.util.Optional;

@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bookShare.Entidades.Book;
-import com.bookShare.Servicios.BookService;
+import com.bookShare.Services.BookService;
 
 import java.util.List;
 import java.util.Optional;

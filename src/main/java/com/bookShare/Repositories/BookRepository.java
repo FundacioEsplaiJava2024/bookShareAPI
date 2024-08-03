@@ -1,4 +1,4 @@
-package com.bookShare.Repositorios;
+package com.bookShare.Repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
