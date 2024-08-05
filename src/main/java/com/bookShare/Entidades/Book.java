@@ -15,6 +15,8 @@ public class Book{
 
     private Long book_id;
 
+    private Long category_id;
+
     private String book_title;
 
     private String book_author;
@@ -115,6 +117,14 @@ public class Book{
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public Long getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(Long category_id) {
+        this.category_id = category_id;
     }
 
    
