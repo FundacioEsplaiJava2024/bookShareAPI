@@ -41,7 +41,7 @@ public class BookController {
     public String deleteBook(@PathVariable Long id) {
         System.out.println(id);
         bookService.deleteBook(id);
-        return "hoal";
+        return "Eliminado correctamente";
     }
 
 }

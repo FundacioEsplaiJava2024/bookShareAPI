@@ -41,7 +41,7 @@ import java.util.List;
         public String deleteUser(@PathVariable Long id) {
             System.out.println(id);
             userService.deleteUser(id);
-            return "hoal";
+            return "Eliminado correctamente";
         }
 
     }

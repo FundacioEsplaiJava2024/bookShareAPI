@@ -41,7 +41,7 @@ public class CategoriasController {
     public String deleteCategorias(@PathVariable Long id) {
         System.out.println(id);
         categoriasService.deleteCategorias(id);
-        return "hoal";
+        return "Eliminado correctamente";
     }
 
 }

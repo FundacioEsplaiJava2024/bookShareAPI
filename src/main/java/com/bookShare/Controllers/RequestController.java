@@ -41,7 +41,7 @@ public class RequestController {
     public String deleteRequest(@PathVariable Long id) {
         System.out.println(id);
         requestService.deleteRequest(id);
-        return "hoal";
+        return "Eliminado correctamente";
     }
 
 }
