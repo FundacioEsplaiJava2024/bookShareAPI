@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class JdbcConnectionTest {
     public static void main(String[] args) {
         // Replace with your database connection details
-        String dbUrl = "jdbc:mysql://localhost:3306/bookShare";
+        String dbUrl = "jdbc:mysql://localhost:3307/bookShare";
         String username = "root";
         String password = "";
 
