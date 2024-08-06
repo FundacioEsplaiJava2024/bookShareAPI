@@ -14,7 +14,9 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public Book createBook(Book book) {
+    public Book createBook(Book book) {//Esta es lo cambiado para coger el id del nuevo libro generado
+        Book nbook = new Book();
+        book.setBook_id(nbook.getBook_id());
         return bookRepository.save(book);
     }
 
