@@ -19,6 +19,9 @@ public class BookController {
 
     @PostMapping("/add")
     public Book createBook(@RequestBody Book book) {
+        // TODO: get real user id
+        Long userId = 1l;
+        book.setUser_id(userId);
         return bookService.createBook(book);
     }
 
