@@ -1,5 +1,7 @@
 package com.bookShare.Entidades;
 
+import org.hibernate.annotations.IdGeneratorType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,9 +12,11 @@ import jakarta.persistence.Table;
 @Table(name="books")
 public class Book{
     
-    @Id
+   
     private Long user_id;
-
+   
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long book_id;
 
     private Long category_id;
