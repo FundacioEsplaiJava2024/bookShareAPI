@@ -21,16 +21,19 @@ public class User{
 
     private String updated_at;
 
+    private String user_image;
+
 
     public User() {}
 
-    public User(Long user_id, String name, String email, String password,String created_at, String update_at) {
+    public User(Long user_id, String name, String email, String password, String created_at, String update_at, String user_image) {
         this.user_id=user_id;
         this.name=name;
         this.email=email;
         this.created_at=created_at;
         this.password=password;
         this.updated_at=update_at;
+        this.user_image=user_image;
 
     }
 
@@ -80,6 +83,14 @@ public class User{
 
     public void setUpdate_at(String update_at) {
         this.updated_at = update_at;
+    }
+
+    public String getUser_image() {
+        return user_image;
+    }
+
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
     }
 
     
