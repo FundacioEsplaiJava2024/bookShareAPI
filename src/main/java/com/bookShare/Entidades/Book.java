@@ -35,11 +35,13 @@ public class Book{
 
     private String updated_at;
 
+    private String book_image;
+
 
     public Book() {}
 
     public Book(Long user_id, Long book_id, String book_title, String book_author, String book_description,
-            String book_condition, String book_location, String created_at, String updated_at) {
+            String book_condition, String book_location, String created_at, String updated_at, String book_image) {
         this.user_id = user_id;
         this.book_id = book_id;
         this.book_title = book_title;
@@ -49,6 +51,7 @@ public class Book{
         this.book_location = book_location;
         this.created_at = created_at;
         this.updated_at = updated_at;
+        this.book_image = book_image;
     }
 
     public Long getUser_id() {
@@ -129,6 +132,14 @@ public class Book{
 
     public void setCategory_id(Long category_id) {
         this.category_id = category_id;
+    }
+
+    public String getBook_image() {
+        return book_image;
+    }
+
+    public void setBook_image(String book_image) {
+        this.book_image = book_image;
     }
 
    
