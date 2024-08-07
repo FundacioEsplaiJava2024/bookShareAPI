@@ -8,7 +8,8 @@ import jakarta.persistence.Table;
 @Table(name="users")
 public class User{
     
-    @Id
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
 
     private String name;
