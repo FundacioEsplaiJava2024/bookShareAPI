@@ -35,4 +35,10 @@ public class UserService {
         userRepository.deleteById(user_id);
     }
 
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    
+
 }
