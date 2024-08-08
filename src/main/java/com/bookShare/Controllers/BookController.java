@@ -46,5 +46,10 @@ public class BookController {
         bookService.deleteBook(id);
         return "Eliminado correctamente";
     }
+    @GetMapping("/user/{userId}")
+public List<Book> getBooksByUser(@PathVariable Long userId) {
+    return bookService.getBooksByUser(userId);
+}
+    
 
 }
