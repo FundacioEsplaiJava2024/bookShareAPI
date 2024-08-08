@@ -8,6 +8,9 @@ import com.bookShare.Services.BookService;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @CrossOrigin
@@ -46,5 +49,11 @@ public class BookController {
         bookService.deleteBook(id);
         return "Eliminado correctamente";
     }
+
+    @GetMapping("/user/{id}")
+    public Optional<Book> getBookByUserId(@RequestParam Long user_id) {
+        return bookService.getBookByUserId(user_id);
+    }
+    
 
 }
