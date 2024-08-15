@@ -21,7 +21,7 @@ public class BookController {
     public Book createBook(@RequestBody Book book) {
         // TODO: get real user id
         Long userId = 1l;
-        book.setUser_id(userId);
+        book.setUserId(userId);
         return bookService.createBook(book);
     }
 
@@ -46,5 +46,9 @@ public class BookController {
         bookService.deleteBook(id);
         return "Eliminado correctamente";
     }
-
+    
+    @GetMapping("/user/{userId}")
+    public List<Book> getBooksByUserId(@PathVariable Long userId) {
+        return bookService.getBooksByUserId(userId);
+    }
 }

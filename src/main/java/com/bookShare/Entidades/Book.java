@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 public class Book{
     
    
-    private Long user_id;
+    private Long userId;
    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,9 +40,9 @@ public class Book{
 
     public Book() {}
 
-    public Book(Long user_id, Long book_id, String book_title, String book_author, String book_description,
+    public Book(Long userId, Long book_id, String book_title, String book_author, String book_description,
             String book_condition, String book_location, String created_at, String updated_at, String book_image) {
-        this.user_id = user_id;
+        this.userId = userId;
         this.book_id = book_id;
         this.book_title = book_title;
         this.book_author = book_author;
@@ -54,12 +54,12 @@ public class Book{
         this.book_image = book_image;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getBook_id() {
