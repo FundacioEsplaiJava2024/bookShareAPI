@@ -22,9 +22,6 @@ public class BookController {
 
     @PostMapping("/add")
     public Book createBook(@RequestBody Book book) {
-        // TODO: get real user id
-        Long userId = 1l;
-        book.setUser_id(userId);
         return bookService.createBook(book);
     }
 
@@ -49,11 +46,9 @@ public class BookController {
         bookService.deleteBook(id);
         return "Eliminado correctamente";
     }
-
-    @GetMapping("/user/{id}")
-    public Optional<Book> getBookByUserId(@RequestParam Long user_id) {
-        return bookService.getBookByUserId(user_id);
-    }
     
-
+    @GetMapping("/user/{userId}")
+    public List<Book> getBooksByUserId(@PathVariable Long userId) {
+        return bookService.getBooksByUserId(userId);
+    }
 }
