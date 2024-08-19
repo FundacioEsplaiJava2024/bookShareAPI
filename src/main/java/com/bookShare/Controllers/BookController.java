@@ -7,13 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bookShare.Entidades.Book;
 import com.bookShare.Services.BookService;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;  
-import java.io.File;
-
-
+import java.util.UUID;
 
 @RestController
 @CrossOrigin
@@ -45,24 +44,31 @@ public class BookController {
 
     @DeleteMapping("/delete/{id}")
     public String deleteBook(@PathVariable Long id) {
-        System.out.println(id);
         bookService.deleteBook(id);
         return "Eliminado correctamente";
     }
-    
+
     @GetMapping("/user/{userId}")
     public List<Book> getBooksByUserId(@PathVariable Long userId) {
         return bookService.getBooksByUserId(userId);
     }
 
-     @PostMapping("/upload")
+    @PostMapping("/upload")
     public String uploadImage(@RequestParam("image") MultipartFile image) throws IOException {
+        if (image.isEmpty()) {
+            throw new IllegalArgumentException("No image file provided");
+        }
+
+        // Generar un nombre único para la imagen
         String imageName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
-        String imagePath = "public/books_images/" + imageName;
+        // Ruta en el servidor
+        String imagePath = Paths.get("public", "books_images", imageName).toString();
 
         File file = new File(imagePath);
+        file.getParentFile().mkdirs(); // Asegúrate de que los directorios existen
         image.transferTo(file);
-       
-        return imageName; // Devuelve el nombre de la imagen para guardarla en la base de datos
+
+        // Retorna la ruta pública para acceder a la imagen
+        return "/books_images/" + imageName;
     }
 }
