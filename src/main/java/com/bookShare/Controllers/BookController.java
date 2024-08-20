@@ -61,10 +61,13 @@ public class BookController {
 
         // Generar un nombre único para la imagen
         String imageName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
+
         // Ruta en el servidor
-        String absolutePath = "C:/Users/Mati/Documents/Valls/Visual Studio/bookShare/public/books_images/";
-        String imagePath = Paths.get(absolutePath, imageName).toString();
-        File file = new File(imagePath);
+        String currentDir = System.getProperty("user.dir");
+        // Ruta relativa en el servidor del frontend
+        String relativePath = Paths.get(currentDir, "..", "bookshare", "public", "books_images", imageName).toString();
+        
+        File file = new File(relativePath);
         file.getParentFile().mkdirs(); // Asegúrate de que los directorios existen
         image.transferTo(file);
 
