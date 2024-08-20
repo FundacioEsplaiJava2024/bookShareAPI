@@ -49,40 +49,40 @@ public class UserController {
         userService.deleteUser(id);
         return "Eliminado correctamente";
     }
-@SuppressWarnings("null")
-@PostMapping("/login")
-public LoginResponse login(@RequestBody User user) {
-    Optional<User> existingUser = userService.getUserByEmail(user.getEmail());
-    if (existingUser.isPresent() && existingUser.get().getPassword().equals(user.getPassword())) {
-        User authenticatedUser = existingUser.get();
-        Long userId = authenticatedUser.getUser_id();
-        // Guarda el ID del usuario en una variable de sesión
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        request.getSession().setAttribute("userId", userId);
-        return new LoginResponse(authenticatedUser, userId);
-    } else {
-        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password");
-    }
-}
 
-class LoginResponse {
-    private User user;
-    private Long userId;
-
-    public LoginResponse(User user, Long userId) {
-        this.user = user;
-        this.userId = userId;
+    @SuppressWarnings("null")
+    @PostMapping("/login")
+    public LoginResponse login(@RequestBody User user) {
+        Optional<User> existingUser = userService.getUserByEmail(user.getEmail());
+        if (existingUser.isPresent() && existingUser.get().getPassword().equals(user.getPassword())) {
+            User authenticatedUser = existingUser.get();
+            Long userId = authenticatedUser.getUser_id();
+            // Guarda el ID del usuario en una variable de sesión
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+                    .getRequest();
+            request.getSession().setAttribute("userId", userId);
+            return new LoginResponse(authenticatedUser, userId);
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password");
+        }
     }
 
-    public User getUser() {
-        return user;
-    }
+    class LoginResponse {
+        private User user;
+        private Long userId;
 
-    public Long getUserId() {
-        return userId;
+        public LoginResponse(User user, Long userId) {
+            this.user = user;
+            this.userId = userId;
+        }
+
+        public User getUser() {
+            return user;
+        }
+
+        public Long getUserId() {
+            return userId;
+        }
     }
-}
-    
-    
 
 }
