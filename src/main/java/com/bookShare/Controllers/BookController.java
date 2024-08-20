@@ -59,19 +59,19 @@ public class BookController {
             throw new IllegalArgumentException("No image file provided");
         }
 
-        // Generar un nombre único para la imagen
+        // Generate an unic name
         String imageName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
 
-        // Ruta en el servidor
+        // Server Path
         String currentDir = System.getProperty("user.dir");
-        // Ruta relativa en el servidor del frontend
+        // ServerPath for frontend
         String relativePath = Paths.get(currentDir, "..", "bookshare", "public", "books_images", imageName).toString();
-        
+
         File file = new File(relativePath);
-        file.getParentFile().mkdirs(); // Asegúrate de que los directorios existen
+        file.getParentFile().mkdirs(); 
         image.transferTo(file);
 
-        // Retorna la ruta pública para acceder a la imagen
+        // Return public path to access the image
         return "public/books_images/" + imageName;
     }
 }
