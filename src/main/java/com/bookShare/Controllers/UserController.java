@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import com.bookShare.Entidades.User;
+import com.bookShare.Requests.UpdateUserRequest;
 import com.bookShare.Services.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,13 +44,11 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+
     @PostMapping("/update/{id}")
     public User updateUser(
             @PathVariable Long id,
-            @RequestParam(value = "image", required = false) MultipartFile image,
-            @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "email", required = false) String email,
-            @RequestParam(value = "password", required = false) String password) throws IOException {
+            @RequestBody UpdateUserRequest request) throws IOException {
     
         // Obtener el usuario existente
         Optional<User> userOptional = userService.getUserById(id);
@@ -60,18 +59,16 @@ public class UserController {
         User user = userOptional.get();
     
         // Actualizar campos según los parámetros que se proporcionan
-        if (name != null) {
-            user.setName(name);
+        if (request.name != null) {
+            user.setName(request.name);
         }
-        if (email != null) {
-            user.setEmail(email);
-        }
-        if (password != null) {
-            user.setPassword(password); // Asegúrate de encriptar la contraseña si es necesario
-        }
-        if (image != null && !image.isEmpty()) {
-            String imageUrl = uploadImage(image); // Método para manejar la carga de la imagen
-            user.setUser_image(imageUrl); // Actualizar la imagen del usuario
+       
+        System.out.println("---------------------------------------------------------------------");
+        System.out.println(request.imageUrl);
+        if (request.imageUrl != null && !request.imageUrl.isEmpty()) {
+            user.setUser_image(request.imageUrl); // Actualizar la imagen del usuario
+            System.out.println("---------------------------------------------------------------------");
+            System.out.println(request.imageUrl);
         }
     
         // Guardar los cambios en el usuario y verificar el resultado
