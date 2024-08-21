@@ -1,5 +1,7 @@
 package com.bookShare.Entidades;
 
+import java.time.LocalDateTime;
+
 import org.hibernate.annotations.IdGeneratorType;
 
 import jakarta.persistence.Entity;
@@ -31,9 +33,9 @@ public class Book{
 
     private String book_location;
 
-    private String created_at;
+    private LocalDateTime created_at;
 
-    private String updated_at;
+    private LocalDateTime updated_at;
 
     private String book_image;
 
@@ -41,7 +43,7 @@ public class Book{
     public Book() {}
 
     public Book(Long userId, Long book_id, String book_title, String book_author, String book_description,
-            String book_condition, String book_location, String created_at, String updated_at, String book_image) {
+            String book_condition, String book_location, LocalDateTime created_at, LocalDateTime updated_at, String book_image) {
         this.userId = userId;
         this.book_id = book_id;
         this.book_title = book_title;
@@ -110,19 +112,19 @@ public class Book{
         this.book_location = book_location;
     }
 
-    public String getCreated_at() {
+    public LocalDateTime getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(String created_at) {
+    public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
 
-    public String getUpdated_at() {
+    public LocalDateTime getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(String updated_at) {
+    public void setUpdated_at(LocalDateTime updated_at) {
         this.updated_at = updated_at;
     }
 
