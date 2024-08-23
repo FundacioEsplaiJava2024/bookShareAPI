@@ -1,5 +1,10 @@
 package com.bookShare.Entidades;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,16 +25,18 @@ public class User{
 
     private String password;
 
-    private String created_at;
+    @CreationTimestamp
+    private LocalDateTime created_at;
 
-    private String updated_at;
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
 
     private String user_image;
 
 
     public User() {}
 
-    public User(Long user_id, String name, String email, String password, String created_at, String update_at, String user_image) {
+    public User(Long user_id, String name, String email, String password, LocalDateTime created_at, LocalDateTime update_at, String user_image) {
         this.user_id=user_id;
         this.name=name;
         this.email=email;
@@ -72,19 +79,19 @@ public class User{
         this.password = password;
     }
 
-    public String getCreated_at() {
+    public LocalDateTime getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(String created_at) {
+    public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
 
-    public String getUpdate_at() {
+    public LocalDateTime getUpdate_at() {
         return updated_at;
     }
 
-    public void setUpdate_at(String update_at) {
+    public void setUpdate_at(LocalDateTime update_at) {
         this.updated_at = update_at;
     }
 
