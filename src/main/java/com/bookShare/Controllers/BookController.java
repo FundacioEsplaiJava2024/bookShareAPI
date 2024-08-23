@@ -3,7 +3,8 @@ package com.bookShare.Controllers;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.bookShare.Entidades.Book;
 import com.bookShare.Services.BookService;
 
@@ -11,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,6 +23,9 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private Cloudinary cloudinary; // Inyectar el cliente de Cloudinary
 
     @PostMapping("/add")
     public Book createBook(@RequestBody Book book) {
@@ -53,25 +58,30 @@ public class BookController {
         return bookService.getBooksByUserId(userId);
     }
 
-    @PostMapping("/upload")
-    public String uploadImage(@RequestParam("image") MultipartFile image) throws IOException {
+    @PostMapping("/{bookId}/upload")
+    public String uploadImage(@PathVariable Long bookId, @RequestParam("image") MultipartFile image) throws IOException {
         if (image.isEmpty()) {
             throw new IllegalArgumentException("No image file provided");
         }
+System.out.println("log1");
+        // Cargar la imagen a Cloudinary
+        @SuppressWarnings("unchecked")
+        Map<String, Object> uploadResult = cloudinary.uploader().upload(image.getBytes(), ObjectUtils.emptyMap());
 
-        // Generate an unic name
-        String imageName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
+        System.out.println("wololo");
+        String url = (String) uploadResult.get("secure_url");
+        System.out.println("book image"+ url);
 
-        // Server Path
-        String currentDir = System.getProperty("user.dir");
-        // ServerPath for frontend
-        String relativePath = Paths.get(currentDir, "..", "bookshare", "public", "books_images", imageName).toString();
-
-        File file = new File(relativePath);
-        file.getParentFile().mkdirs(); 
-        image.transferTo(file);
-
-        // Return public path to access the image
-        return "public/books_images/" + imageName;
+        Optional<Book> currentBook = bookService.getBookById(bookId);
+        if(currentBook.isPresent()){
+            Book modifiedBook = currentBook.get();
+            modifiedBook.setBook_image(url);
+            bookService.updateBook(bookId, modifiedBook);    
+        }
+        else {
+            //TODO: throw exception
+        }
+        // Retornar la URL segura de la imagen cargada
+        return url;
     }
 }
