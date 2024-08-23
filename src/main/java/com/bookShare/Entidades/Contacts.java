@@ -1,17 +1,18 @@
 package com.bookShare.Entidades;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="user_contacts")
-public class Contacts{
-    
-   
-   
+@Table(name = "user_contacts")
+public class Contacts {
+
     @Id
     private Long userId;
 
@@ -28,33 +29,32 @@ public class Contacts{
     private String country;
 
     private String postal_code;
-    
-   
 
+    @CreationTimestamp
+    private LocalDateTime created_at;
 
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
 
-
-    public Contacts() {}
-
-    public Contacts(
-        Long contact_id, Long userId, String phone_number, 
-        String email, String address, String city, 
-        String state, String country, String postal_code,
-        String created_at, String updated_at
-        ) {
-        
-        this.userId=userId;
-        this.phone_number=phone_number;
-        this.email=email;
-        this.address=address;
-        this.city=city;
-        this.state=state;
-        this.country=country;
-        this.postal_code=postal_code;
-        
+    public Contacts() {
     }
 
-  
+    public Contacts(
+            Long contact_id, Long userId, String phone_number,
+            String email, String address, String city,
+            String state, String country, String postal_code,
+            String created_at, String updated_at) {
+
+        this.userId = userId;
+        this.phone_number = phone_number;
+        this.email = email;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.postal_code = postal_code;
+
+    }
 
     public Long getuserId() {
         return userId;
@@ -120,7 +120,20 @@ public class Contacts{
         this.postal_code = postal_code;
     }
 
+    public LocalDateTime getCreated_at() {
+        return created_at;
+    }
 
-    
-    
+    public void setCreated_at(LocalDateTime created_at) {
+        this.created_at = created_at;
+    }
+
+    public LocalDateTime getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(LocalDateTime updated_at) {
+        this.updated_at = updated_at;
+    }
+
 }
