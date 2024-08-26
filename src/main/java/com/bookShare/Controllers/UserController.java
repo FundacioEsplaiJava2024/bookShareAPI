@@ -1,11 +1,8 @@
 package com.bookShare.Controllers;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,11 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.bookShare.Entidades.User;
@@ -107,28 +102,6 @@ public class UserController {
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password");
         }
-    }
-
-    @PostMapping("/upload")
-    public String uploadImage(@RequestParam("image") MultipartFile image) throws IOException {
-        if (image.isEmpty()) {
-            throw new IllegalArgumentException("No image file provided");
-        }
-
-        // Generar un nombre único para la imagen
-        String imageName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
-
-        // Ruta en el servidor
-        String currentDir = System.getProperty("user.dir");
-        // Ruta relativa en el servidor del frontend
-        String relativePath = Paths.get(currentDir, "..", "bookshare", "public", "user_images", imageName).toString();
-
-        File file = new File(relativePath);
-        file.getParentFile().mkdirs(); // Asegúrate de que los directorios existen
-        image.transferTo(file);
-
-        // Retorna la ruta pública para acceder a la imagen
-        return "public/user_images/" + imageName;
     }
 
     class LoginResponse {
