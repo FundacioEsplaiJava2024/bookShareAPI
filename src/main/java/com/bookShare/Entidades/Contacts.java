@@ -1,19 +1,19 @@
 package com.bookShare.Entidades;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="user_contacts")
-public class Contacts{
-    
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long contact_id;
+@Table(name = "user_contacts")
+public class Contacts {
 
+    @Id
     private Long userId;
 
     private String phone_number;
@@ -29,41 +29,31 @@ public class Contacts{
     private String country;
 
     private String postal_code;
-    
-    private String created_at;
 
-    private String updated_at;
+    @CreationTimestamp
+    private LocalDateTime created_at;
 
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
 
-
-
-    public Contacts() {}
+    public Contacts() {
+    }
 
     public Contacts(
-        Long contact_id, Long userId, String phone_number, 
-        String email, String address, String city, 
-        String state, String country, String postal_code,
-        String created_at, String updated_at
-        ) {
-        this.contact_id=contact_id;
-        this.userId=userId;
-        this.phone_number=phone_number;
-        this.email=email;
-        this.address=address;
-        this.city=city;
-        this.state=state;
-        this.country=country;
-        this.postal_code=postal_code;
-        this.created_at=created_at;
-        this.updated_at=updated_at;
-    }
+            Long contact_id, Long userId, String phone_number,
+            String email, String address, String city,
+            String state, String country, String postal_code,
+            String created_at, String updated_at) {
 
-    public Long getContact_id() {
-        return contact_id;
-    }
+        this.userId = userId;
+        this.phone_number = phone_number;
+        this.email = email;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.postal_code = postal_code;
 
-    public void setContact_id(Long contact_id) {
-        this.contact_id = contact_id;
     }
 
     public Long getuserId() {
@@ -130,22 +120,20 @@ public class Contacts{
         this.postal_code = postal_code;
     }
 
-    public String getCreated_at() {
+    public LocalDateTime getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(String created_at) {
+    public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
 
-    public String getUpdated_at() {
+    public LocalDateTime getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(String updated_at) {
+    public void setUpdated_at(LocalDateTime updated_at) {
         this.updated_at = updated_at;
     }
 
-    
-    
 }

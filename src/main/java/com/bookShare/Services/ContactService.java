@@ -23,8 +23,8 @@ public class ContactService {
         return contactsRepository.findAll();
     }
 
-    public Contacts updateContacts(Long contacts_id, Contacts contacts) {
-        contacts.setContact_id(contacts_id);
+    public Contacts updateContacts(Long userId, Contacts contacts) {
+        contacts.setuserId(userId);
         return contactsRepository.save(contacts);
     }
 

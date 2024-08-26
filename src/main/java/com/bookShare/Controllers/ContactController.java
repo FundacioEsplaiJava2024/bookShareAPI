@@ -1,7 +1,9 @@
 package com.bookShare.Controllers;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 
 import com.bookShare.Entidades.Contacts;
 import com.bookShare.Services.ContactService;
@@ -19,6 +21,9 @@ public class ContactController {
 
     @PostMapping("/add")
     public Contacts createContacts(@RequestBody Contacts contacts) {
+        if (contacts.getuserId() == null) {
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El ID de usuario no puede ser nulo");
+    }
         return contactsService.createContacts(contacts);
     }
 
