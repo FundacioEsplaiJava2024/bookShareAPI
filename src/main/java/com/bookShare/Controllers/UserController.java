@@ -1,26 +1,34 @@
 package com.bookShare.Controllers;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import com.bookShare.Entidades.User;
-import com.bookShare.Requests.UpdateUserRequest;
-import com.bookShare.Services.UserService;
-
-import jakarta.servlet.http.HttpServletRequest;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.bookShare.Entidades.User;
+import com.bookShare.Requests.UpdateUserRequest;
+import com.bookShare.Services.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @CrossOrigin
@@ -35,6 +43,10 @@ public class UserController {
 
     @PostMapping("/add")
     public User createUser(@RequestBody User user) {
+        // Asignar la imagen predeterminada si no se proporciona una
+        if (user.getUser_image() == null || user.getUser_image().isEmpty()) {
+            user.setUser_image("public/users_images/newUser.png");
+        }
         return userService.createUser(user);
     }
 
@@ -66,12 +78,8 @@ public class UserController {
             user.setName(request.name);
         }
 
-        System.out.println("---------------------------------------------------------------------");
-        System.out.println(request.imageUrl);
         if (request.imageUrl != null && !request.imageUrl.isEmpty()) {
             user.setUser_image(request.imageUrl); // Actualizar la imagen del usuario
-            System.out.println("---------------------------------------------------------------------");
-            System.out.println(request.imageUrl);
         }
 
         // Guardar los cambios en el usuario y verificar el resultado
@@ -81,12 +89,10 @@ public class UserController {
 
     @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
-        System.out.println(id);
         userService.deleteUser(id);
         return "Eliminado correctamente";
     }
 
-    @SuppressWarnings("null")
     @PostMapping("/login")
     public LoginResponse login(@RequestBody User user) {
         Optional<User> existingUser = userService.getUserByEmail(user.getEmail());
@@ -115,14 +121,14 @@ public class UserController {
         // Ruta en el servidor
         String currentDir = System.getProperty("user.dir");
         // Ruta relativa en el servidor del frontend
-        String relativePath = Paths.get(currentDir, "..", "bookshare", "public", "users_images", imageName).toString();
+        String relativePath = Paths.get(currentDir, "..", "bookshare", "public", "user_images", imageName).toString();
 
         File file = new File(relativePath);
         file.getParentFile().mkdirs(); // Asegúrate de que los directorios existen
         image.transferTo(file);
 
         // Retorna la ruta pública para acceder a la imagen
-        return "public/users_images/" + imageName;
+        return "public/user_images/" + imageName;
     }
 
     class LoginResponse {
@@ -142,5 +148,4 @@ public class UserController {
             return userId;
         }
     }
-
 }
